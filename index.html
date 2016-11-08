@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var locations = JSON.parse(this.responseText);
+            console.log(locations);
+            populate_map(locations, map);
+          }
+        };
+        xhttp.open("GET", "http://54.172.220.97:9000/rtrack");
+        xhttp.send();
+      }
+
+      function populate_map(locations, map){
+        for (var loc in locations) {
+
+          if (!locations.hasOwnProperty(loc)) continue;
+
+          var marker = new google.maps.Marker({
+            position: {
+              lat: locations[loc].lat,
+              lng: locations[loc].lon
+            },
+            map: map
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCff0Um3Sj_1UH_caRyiqg48s-zPLNxONU&callback=initMap">
+    </script>
+  </body>
+</html>

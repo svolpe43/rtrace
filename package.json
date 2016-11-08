@@ -1,0 +1,9 @@
+{
+  "name": "circum",
+  "version": "0.0.1",
+  "description": "Circumnavigate the Earth",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "request": "^2.78.0"
+  }
+}
